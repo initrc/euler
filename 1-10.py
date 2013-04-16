@@ -6,5 +6,17 @@ def p1():
       sum += i
   print sum
 
+# Even Fibonacci numbers
+def p2():
+  sum, a, b = 0, 1, 2
+  while b < 4000000:
+    sum += b
+    # a(odd), b(even), a+b(odd), a+2b(odd), 2a+3b(even)
+    temp = a + b
+    a += 2 * b
+    b = a + temp
+  print sum
+
 if __name__ == '__main__':
   p1()
+  p2()
