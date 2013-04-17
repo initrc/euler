@@ -1,3 +1,5 @@
+import math
+
 # Multiples of 3 and 5
 def p1():
   sum = 0;
@@ -17,6 +19,21 @@ def p2():
     b = a + temp
   print sum
 
+# Largest prime factor
+def p3():
+  x = 600851475143
+  factor, max_factor = 2, 2
+  # x has at most one factor that is greater than sqrt(x)
+  gate = math.sqrt(x)
+  while factor <= gate:
+    if not x % factor:
+      x /= factor
+      max_factor = factor
+    else:
+      factor += 1
+  print max_factor if x == 1 else x
+
 if __name__ == '__main__':
   p1()
   p2()
+  p3()
