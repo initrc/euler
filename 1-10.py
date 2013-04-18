@@ -14,9 +14,7 @@ def p2():
   while b < 4000000:
     sum += b
     # a(odd), b(even), a+b(odd), a+2b(odd), 2a+3b(even)
-    temp = a + b
-    a += 2 * b
-    b = a + temp
+    a, b = a + 2 * b, 2 * a + 3 * b
   print sum
 
 # Largest prime factor
