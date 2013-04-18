@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import math
 
 # Multiples of 3 and 5
