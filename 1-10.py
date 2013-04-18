@@ -91,9 +91,21 @@ def p5():
       prime_idx += 1
   print lcm
 
+# Sum square difference
+def p6():
+  count = 100
+  nums = range(1, count + 1)
+  sum_of_squares = 0
+  for i in nums:
+    sum_of_squares += math.pow(i, 2)
+  square_of_sum = math.pow(sum(nums), 2)
+  print square_of_sum - sum_of_squares
+# or get the formula f(n) = 1^2 + ... + n^2
+
 if __name__ == '__main__':
   p1()
   p2()
   p3()
   p4()
   p5()
+  p6()
