@@ -69,8 +69,31 @@ def p4_is_palindrome(x):
     multi *= 10
   return x == reverse_x
 
+# Smallest multiple
+def p5():
+  primes = (2, 3, 5, 7, 11, 13, 17, 19)
+  prime_idx = 0
+  count = 20
+  lcm = 1
+  nums = range(1, count + 1)
+  count_of_1 = 1
+  while count_of_1 < count:
+    is_divider = False
+    for idx, num in enumerate(nums):
+      if not num % primes[prime_idx]:
+        nums[idx] = num / primes[prime_idx]
+        if nums[idx] == 1:
+          count_of_1 += 1
+        is_divider = True
+    if is_divider:
+      lcm *= primes[prime_idx]
+    else:
+      prime_idx += 1
+  print lcm
+
 if __name__ == '__main__':
   p1()
   p2()
   p3()
   p4()
+  p5()
