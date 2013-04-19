@@ -102,6 +102,28 @@ def p6():
   print square_of_sum - sum_of_squares
 # or get the formula f(n) = 1^2 + ... + n^2
 
+# 10001st prime
+def p7():
+  x = 3
+  idx = 3
+  while idx <= 10001:
+    x += 2
+    if p7_is_prime(x):
+      idx += 1
+  print x
+
+def p7_is_prime(x):
+  if not x % 2:
+    return False
+  factor = 3
+  gate = int(math.sqrt(x))
+  while factor <= gate:
+    if not x % factor:
+      return False
+    else:
+      factor += 2
+  return True
+
 if __name__ == '__main__':
   p1()
   p2()
@@ -109,3 +131,4 @@ if __name__ == '__main__':
   p4()
   p5()
   p6()
+  p7()
