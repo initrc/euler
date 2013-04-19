@@ -123,6 +123,7 @@ def p7_is_prime(x):
     else:
       factor += 2
   return True
+# prime > 3 can be represented in the form of 6k+-1
 
 if __name__ == '__main__':
   p1()
