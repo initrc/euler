@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import math
+import time
 from sets import Set
 
 # Multiples of 3 and 5
@@ -194,13 +195,23 @@ def p9():
         if a + b + c == 1000:
           print a, b, c, a*b*c
 
+# Summation of primes
+def p10():
+  count = 2000000
+  set = Set([2, 3])
+  for i in range(6, count, 6):
+    set.add(i - 1)
+    set.add(i + 1)
+  for i in range(5, int(math.sqrt(count)) + 1, 2):
+    for j in range(i * 3, count, i):
+      if j in set:
+        set.remove(j)
+  print sum(set)
+
 if __name__ == '__main__':
-  p1()
-  p2()
-  p3()
-  p4()
-  p5()
-  p6()
-  p7()
-  p8()
-  p9()
+  problems = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
+  for p in problems:
+    start = time.time()
+    p()
+    end = time.time()
+    print "[%fs]" % (end - start)
