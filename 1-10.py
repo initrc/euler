@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import math
+from sets import Set
 
 # Multiples of 3 and 5
 def p1():
@@ -179,6 +180,20 @@ def p8_has_0(str):
       idx = i
   return idx
 
+# Special Pythagorean triplet
+def p9():
+  sum = 1000
+  square_set = Set()
+  for i in range(1, sum - 2):
+    square_set.add(i * i)
+  for a in range(1, sum / 3):
+    for b in range(a + 1, sum / 2):
+      c2 = a*a + b*b
+      if c2 in square_set:
+        c = int(math.sqrt(c2))
+        if a + b + c == 1000:
+          print a, b, c, a*b*c
+
 if __name__ == '__main__':
   p1()
   p2()
@@ -188,3 +203,4 @@ if __name__ == '__main__':
   p6()
   p7()
   p8()
+  p9()
