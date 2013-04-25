@@ -65,8 +65,25 @@ def p11():
         diag_max = max(diag_max, cur_diag)
   print max(row_col_max, diag_max)
 
+# Highly divisible triangular number
+def p12():
+  i, tri_num = 1, 1
+  while True:
+    i += 1
+    tri_num += i
+    if p12_num_of_divisor(tri_num) > 500:
+      print tri_num
+      return
+
+def p12_num_of_divisor(x):
+  num = 1
+  for i in xrange(2, int(math.sqrt(x)) + 1):
+    if not x % i:
+      num += 1
+  return num * 2
+
 if __name__ == '__main__':
-  problems = [p11]
+  problems = [p11, p12]
   for p in problems:
     start = time.time()
     p()
