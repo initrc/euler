@@ -2,6 +2,7 @@
 
 import math
 import time
+from sets import Set
 
 # Largest product in a grid
 def p11():
@@ -203,8 +204,27 @@ def p13():
       carry[carry_idx] += 1
   print ''.join(map(str, carry[-2:41:-1]))
 
+# Longest Collatz sequence
+def p14():
+  f = lambda n: n / 2 if not n % 2 else 3 * n + 1
+  history = {1:1}
+  max_chain, max_num = 1, 1
+  for num in xrange(999999, 0, -1):
+    chain = []
+    x = num
+    while x not in history and x != 1:
+      chain.insert(0, x)
+      x = f(x)
+    base_chain = history[x]
+    for idx, val in enumerate(chain):
+      history[val] = base_chain + idx + 1
+    if history[num] > max_chain:
+      max_chain = history[num]
+      max_num = num
+  print "chain starts at %d has length %d" % (max_num, max_chain)
+
 if __name__ == '__main__':
-  problems = [p13]
+  problems = [p14]
   #problems = [p11, p12, p13, p14, p15, p16, p17, p18, p19, p20]
   for p in problems:
     start = time.time()
