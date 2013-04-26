@@ -223,8 +223,15 @@ def p14():
       max_num = num
   print "chain starts at %d has length %d" % (max_num, max_chain)
 
+# Lattice paths
+def p15():
+  f = math.factorial
+  nCr = lambda n, r: f(n) / f(r) / f(n - r)
+  length = 20
+  print nCr(length * 2, length)
+
 if __name__ == '__main__':
-  problems = [p14]
+  problems = [p15]
   #problems = [p11, p12, p13, p14, p15, p16, p17, p18, p19, p20]
   for p in problems:
     start = time.time()
