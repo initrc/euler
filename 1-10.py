@@ -60,7 +60,7 @@ def p4_is_palindrome(x):
   if x < 10:
     return True
   digit = int(math.log(x, 10)) + 1
-  base = int(math.pow(10, digit - 1))
+  base = 10 ** (digit - 1)
   reverse_x = 0;
   multi = 1;
   num = x
@@ -99,8 +99,8 @@ def p6():
   nums = range(1, count + 1)
   sum_of_squares = 0
   for i in nums:
-    sum_of_squares += int(math.pow(i, 2))
-  square_of_sum = int(math.pow(sum(nums), 2))
+    sum_of_squares += i ** 2
+  square_of_sum = sum(nums) ** 2
   print square_of_sum - sum_of_squares
 # or get the formula f(n) = 1^2 + ... + n^2
 
