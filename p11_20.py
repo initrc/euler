@@ -243,6 +243,62 @@ class P11_20(Problem):
             num /= 10
         print sum
 
+    def p17(self):
+        """Number letter counts"""
+        sum = 0
+        for x in xrange(1, 1001):
+            sum += self._p17_strlen(x)
+        print sum
+
+    def _p17_strlen(self, x):
+        rules = {
+            1: len("one"),
+            2: len("two"),
+            3: len("three"),
+            4: len("four"),
+            5: len("five"),
+            6: len("six"),
+            7: len("seven"),
+            8: len("eight"),
+            9: len("nine"),
+            10: len("ten"),
+            11: len("eleven"),
+            12: len("twelve"),
+            13: len("thirteen"),
+            14: len("fourteen"),
+            15: len("fifteen"),
+            16: len("sixteen"),
+            17: len("seventeen"),
+            18: len("eighteen"),
+            19: len("nineteen"),
+            20: len("twenty"),
+            30: len("thirty"),
+            40: len("forty"),
+            50: len("fifty"),
+            60: len("sixty"),
+            70: len("seventy"),
+            80: len("eighty"),
+            90: len("ninety"),
+            100: len("hundred"),
+            1000: len("thousand")}
+        if x == 0:
+            return 0
+        if x <= 20:
+            return rules[x]
+        elif x <= 99:
+            if x in rules:
+                return rules[x]
+            else:
+                return rules[x % 10] + rules[x / 10 * 10]
+        elif x <= 999:
+            digit2 = len("and") + self._p17_strlen(x % 100) if x % 100 else 0
+            return rules[x / 100] + rules[100] + digit2
+        elif x <= 20000:
+            digit3 = len("and") + self._p17_strlen(x % 1000) if x % 1000 else 0
+            return rules[x / 1000] + rules[1000] + digit3
+        else:
+            return 0  # unsupported
+
 if __name__ == '__main__':
     p = P11_20()
     p.solve_largest()
