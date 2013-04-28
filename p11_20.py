@@ -234,6 +234,15 @@ class P11_20(Problem):
         length = 20
         print nCr(length * 2, length)
 
+    def p16(self):
+        """Power digit sum"""
+        num = 2 ** 1000
+        sum = 0
+        while num > 0:
+            sum += num % 10
+            num /= 10
+        print sum
+
 if __name__ == '__main__':
     p = P11_20()
     p.solve_largest()
