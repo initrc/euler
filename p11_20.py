@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import math
-import time
 from datetime import date
 from problem import Problem
 from sets import Set
