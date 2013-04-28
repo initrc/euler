@@ -361,4 +361,4 @@ class TreeNode:
 
 if __name__ == '__main__':
     p = P11_20()
-    p.solve_largest()
+    p.solve_all()
