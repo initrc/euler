@@ -3,7 +3,6 @@
 import math
 from datetime import date
 from problem import Problem
-from sets import Set
 
 
 class P11_20(Problem):
