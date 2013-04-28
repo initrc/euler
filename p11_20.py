@@ -332,12 +332,21 @@ class P11_20(Problem):
         return [map(lambda x: TreeNode(int(x)), x.split()) for x in input]
 
     def p19(self):
-        """ Counting Sundays"""
+        """Counting Sundays"""
         sum = 0
         for i in xrange(1901, 2001):
             for j in xrange(1, 13):
                 if date(i, j, 1).weekday() == 6:
                     sum += 1
+        print sum
+
+    def p20(self):
+        """Factorial digit sum"""
+        x = math.factorial(100)
+        sum = 0
+        while x > 0:
+            sum += x % 10
+            x /= 10
         print sum
 
 
