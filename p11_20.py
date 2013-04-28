@@ -299,10 +299,11 @@ class P11_20(Problem):
         else:
             return 0  # unsupported
 
-    def p18(self):
+    def p18(self, tree=None):
         """Maximum path sum I"""
         """Maximum path sum II at p67"""
-        tree = self._p18_build_list()
+        if tree is None:
+            tree = self._p18_build_tree()
         for i, row in enumerate(tree[:-1]):
             for j, node in enumerate(row):
                 node.visit()
@@ -311,7 +312,7 @@ class P11_20(Problem):
                 tree[i + 1][j + 1].value_above = node.value
         print max(x.value_above + x.value for x in tree[-1])
 
-    def _p18_build_list(self):
+    def _p18_build_tree(self):
         input = [
             "75",
             "95 64",
