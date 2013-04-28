@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-import math
-from p11_20 import P11_20
+from p11_20 import P11_20, TreeNode
 from problem import Problem
-from sets import Set
 
 
 class P61_70(Problem):
@@ -19,15 +17,6 @@ class P61_70(Problem):
             return [map(lambda x: TreeNode(int(x)), x.split())
                     for x in f.readlines()]
 
-
-class TreeNode:
-
-    def __init__(self, value):
-        self.value = value
-        self.value_above = 0
-
-    def visit(self):
-        self.value += self.value_above
 
 if __name__ == '__main__':
     p = P61_70()
