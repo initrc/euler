@@ -2,6 +2,7 @@
 
 import math
 import time
+from datetime import date
 from problem import Problem
 from sets import Set
 
@@ -329,6 +330,15 @@ class P11_20(Problem):
             "63 66 04 68 89 53 67 30 73 16 69 87 40 31",
             "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"]
         return [map(lambda x: TreeNode(int(x)), x.split()) for x in input]
+
+    def p19(self):
+        """ Counting Sundays"""
+        sum = 0
+        for i in xrange(1901, 2001):
+            for j in xrange(1, 13):
+                if date(i, j, 1).weekday() == 6:
+                    sum += 1
+        print sum
 
 
 class TreeNode:
