@@ -54,10 +54,10 @@ class P1_10(Problem):
                         return
                     else:
                         break
-                if self._p4_is_palindrome(p):
+                if self._is_palindrome(p):
                     max, x1, x2 = p, i, j
 
-    def _p4_is_palindrome(self, x):
+    def _is_palindrome(self, x):
         if x < 0:
             return False
         if x < 10:
@@ -113,11 +113,11 @@ class P1_10(Problem):
         idx = 3
         while idx <= 10001:
             x += 2
-            if self._p7_is_prime(x):
+            if self._is_prime(x):
                 idx += 1
         print x
 
-    def _p7_is_prime(self, x):
+    def _is_prime(self, x):
         if not x % 2:
             return False
         factor = 3
@@ -152,13 +152,13 @@ class P1_10(Problem):
                "84580156166097919133875499200524063689912560717606"
                "05886116467109405077541002256983155200055935729725"
                "71636269561882670428252483600823257530420752963450")
-        product = self._p8_product_of_str(num[:5])
+        product = self._product_of_str(num[:5])
         cur_idx = 0
         next_idx = 5
         while next_idx < len(num):
             jump = False
             while True:
-                zero_idx = self._p8_has_0(num[cur_idx:next_idx])
+                zero_idx = self._str_has_0(num[cur_idx:next_idx])
                 if zero_idx != -1:
                     cur_idx += zero_idx + 1
                     next_idx += zero_idx + 1
@@ -166,19 +166,19 @@ class P1_10(Problem):
                 else:
                     break
             if jump or int(num[next_idx]) > int(num[cur_idx]):
-                product = max(product, self._p8_product_of_str(
+                product = max(product, self._product_of_str(
                     num[cur_idx + 1:next_idx + 1]))
             cur_idx += 1
             next_idx += 1
         print product
 
-    def _p8_product_of_str(self, str):
+    def _product_of_str(self, str):
         product = 1
         for i in str:
             product *= int(i)
         return product
 
-    def _p8_has_0(self, str):
+    def _str_has_0(self, str):
         idx = -1
         for i in range(len(str)):
             if (int(str[i]) == 0):
@@ -202,9 +202,9 @@ class P1_10(Problem):
 
     def p10(self):
         """Summation of primes"""
-        print sum(self._p10_prime_set(2000000))
+        print sum(self._prime_set(2000000))
 
-    def _p10_prime_set(self, limit):
+    def _prime_set(self, limit):
         set = Set([2, 3])
         for i in range(6, limit, 6):
             set.add(i - 1)

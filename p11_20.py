@@ -75,11 +75,11 @@ class P11_20(Problem):
         while True:
             i += 1
             tri_num += i
-            if self._p12_num_of_divisor(tri_num) > 500:
+            if self._num_of_divisor(tri_num) > 500:
                 print tri_num
                 return
 
-    def _p12_num_of_divisor(self, x):
+    def _num_of_divisor(self, x):
         num = 1
         for i in xrange(2, int(math.sqrt(x)) + 1):
             if not x % i:
