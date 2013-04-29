@@ -202,16 +202,18 @@ class P1_10(Problem):
 
     def p10(self):
         """Summation of primes"""
-        count = 2000000
+        print sum(self._p10_prime_set(2000000))
+
+    def _p10_prime_set(self, limit):
         set = Set([2, 3])
-        for i in range(6, count, 6):
+        for i in range(6, limit, 6):
             set.add(i - 1)
             set.add(i + 1)
-        for i in range(5, int(math.sqrt(count)) + 1, 2):
-            for j in range(i * 3, count, i):
+        for i in range(5, int(math.sqrt(limit)) + 1, 2):
+            for j in range(i * 3, limit, i):
                 if j in set:
                     set.remove(j)
-        print sum(set)
+        return set
 
 
 if __name__ == '__main__':
