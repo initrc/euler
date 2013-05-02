@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import itertools
 import math
 import operator
 from sets import Set
@@ -84,6 +85,13 @@ class P21_30(Problem):
                     abundant_sum.add(s)
                 else:
                     break
+
+    def p24(self):
+        LIMIT = 1000000
+        p = itertools.permutations(xrange(10))
+        for i in xrange(LIMIT - 1):
+            p.next()
+        print reduce(lambda x, y: x * 10 + y, p.next())
 
 if __name__ == '__main__':
     p = P21_30()
