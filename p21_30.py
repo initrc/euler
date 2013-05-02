@@ -104,6 +104,32 @@ class P21_30(Problem):
             idx += 1
         print idx
 
+    def p26(self):
+        """Reciprocal cycles"""
+        longest, d = 0, 0
+        for x in xrange(2, 1000):
+            idx, length = 0, 0
+            remainders = {}
+            dividend = 10
+            while dividend < x:
+                dividend *= 10
+            remainder = dividend % x
+            while remainder != 0:
+                if remainder in remainders.keys():
+                    length = idx - remainders.get(remainder)
+                    if length > longest:
+                        longest = length
+                        d = x
+                    break
+                remainders[remainder] = idx
+                dividend = remainder * 10
+                while dividend < x:
+                    dividend *= 10
+                    idx += 1
+                remainder = dividend % x
+                idx += 1
+        print d
+
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
