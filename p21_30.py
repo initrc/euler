@@ -93,6 +93,13 @@ class P21_30(Problem):
             p.next()
         print reduce(lambda x, y: x * 10 + y, p.next())
 
+    def p25(self):
+        i, j, idx = 1, 1, 2
+        while j < 10 ** 999:
+            i, j = j, i + j
+            idx += 1
+        print idx
+
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
