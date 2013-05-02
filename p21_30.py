@@ -60,6 +60,7 @@ class P21_30(Problem):
                     return
 
     def p22(self):
+        """Names scores"""
         with open('data/names.txt', 'r') as f:
             names = [s.strip('\".\"') for s in f.read().split(',')]
         score = 0
@@ -69,6 +70,7 @@ class P21_30(Problem):
         print score
 
     def p23(self):
+        """Non-abundant sums"""
         LIMIT = 28123
         primes = sorted(P1_10()._prime_set(LIMIT + 1))
         is_abundant = lambda x: self._proper_divisor_sum(x, primes) > x
@@ -87,6 +89,7 @@ class P21_30(Problem):
                     break
 
     def p24(self):
+        """Lexicographic permutations"""
         LIMIT = 1000000
         p = itertools.permutations(xrange(10))
         for i in xrange(LIMIT - 1):
@@ -94,6 +97,7 @@ class P21_30(Problem):
         print reduce(lambda x, y: x * 10 + y, p.next())
 
     def p25(self):
+        """1000-digit Fibonacci number"""
         i, j, idx = 1, 1, 2
         while j < 10 ** 999:
             i, j = j, i + j
