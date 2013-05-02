@@ -66,6 +66,24 @@ class P21_30(Problem):
             score += sum((ord(name[i]) - 64) for i in xrange(len(name))) * (idx + 1)
         print score
 
+    def p23(self):
+        LIMIT = 28123
+        primes = sorted(P1_10()._prime_set(LIMIT + 1))
+        is_abundant = lambda x: self._proper_divisor_sum(x, primes) > x
+        abundant = filter(is_abundant, xrange(2, LIMIT + 1))
+        abundant_sum = Set()
+        for i in xrange(len(abundant)):
+            if abundant[i] * 2 > LIMIT:
+                print sum([x for x in xrange(1, LIMIT + 1) if x not in
+                           abundant_sum])
+                return
+            for j in xrange(i, len(abundant)):
+                s = abundant[i] + abundant[j]
+                if s <= LIMIT:
+                    abundant_sum.add(s)
+                else:
+                    break
+
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
