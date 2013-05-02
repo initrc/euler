@@ -58,6 +58,14 @@ class P21_30(Problem):
                 if idx >= length:
                     return
 
+    def p22(self):
+        with open('data/names.txt', 'r') as f:
+            names = [s.strip('\".\"') for s in f.read().split(',')]
+        score = 0
+        for idx, name in enumerate(sorted(names)):
+            score += sum((ord(name[i]) - 64) for i in xrange(len(name))) * (idx + 1)
+        print score
+
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
