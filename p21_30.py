@@ -63,7 +63,8 @@ class P21_30(Problem):
             names = [s.strip('\".\"') for s in f.read().split(',')]
         score = 0
         for idx, name in enumerate(sorted(names)):
-            score += sum((ord(name[i]) - 64) for i in xrange(len(name))) * (idx + 1)
+            s = sum((ord(name[i]) - 64) for i in xrange(len(name)))
+            score += s * (idx + 1)
         print score
 
     def p23(self):
