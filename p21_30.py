@@ -155,6 +155,19 @@ class P21_30(Problem):
         print "a=%d, b=%d, a*b=%d, n = 0 to %d" % (final_a, final_b,
                                                    final_a * final_b, max_n)
 
+    def p28(self):
+        """Number spiral diagonals"""
+        """
+        sum = 1 + 4 * (6 + 19 + ...)
+        upper right = 3^2, 5^2, ...
+        f(n) = n^2 - (n-1) - (n-1)/2 = n^2 - (n-1)*3/2
+        f(3) = 6, f(5) = 19, ...
+        """
+        LIMIT = 1001
+        f = lambda n: n ** 2 - (n - 1) * 3 / 2
+        s = sum(map(f, xrange(3, LIMIT + 1, 2)))
+        print 1 + s * 4
+
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
