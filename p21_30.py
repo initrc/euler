@@ -176,6 +176,19 @@ class P21_30(Problem):
                 set.add(a ** b)
         print len(set)
 
+    def p30(self):
+        """Digit fifth powers"""
+        sum = 0
+        # 9^5=59049, at most 6 digits
+        for i in xrange(2, 9**5 * 6 + 1):
+            num = 0
+            x = i
+            while x > 0:
+                num += (x % 10) ** 5
+                x /= 10
+            if num == i:
+                sum += num
+        print sum
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
