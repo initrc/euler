@@ -130,6 +130,31 @@ class P21_30(Problem):
                 idx += 1
         print d
 
+    def p27(self):
+        """Quadratic primes"""
+        # example: n^2 + n + 41 (n = 0 to 39)
+        final_a, final_b = 1, 41
+        max_n = 39
+        LIMIT = 1000
+        MAX_PRIME = 1601
+        # a must be odd and b must be a prime
+        f = lambda a, b, n: n ** 2 + a * n + b
+        primes = P1_10()._prime_set(MAX_PRIME + 1)
+        for b in filter(lambda x: x > 41 and x < 1000, primes):
+            for a in xrange(1 - LIMIT, 1000, 2):
+                if f(a, b, 40) in primes:
+                    n = 0
+                    while True:
+                        if f(a, b, n) in primes:
+                            n += 1
+                        else:
+                            if n > max_n:
+                                max_n = n
+                                final_a, final_b = a, b
+                            break
+        print "a=%d, b=%d, a*b=%d, n = 0 to %d" % (final_a, final_b,
+                                                   final_a * final_b, max_n)
+
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
