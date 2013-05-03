@@ -168,6 +168,14 @@ class P21_30(Problem):
         s = sum(map(f, xrange(3, LIMIT + 1, 2)))
         print 1 + s * 4
 
+    def p29(self):
+        """Distinct powers"""
+        set = Set()
+        for a in xrange(2, 101):
+            for b in xrange(2, 101):
+                set.add(a ** b)
+        print len(set)
+
 if __name__ == '__main__':
     p = P21_30()
     p.solve_largest()
