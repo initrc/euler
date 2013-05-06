@@ -189,6 +189,7 @@ class P21_30(Problem):
             if num == i:
                 sum += num
         print sum
+
 if __name__ == '__main__':
     p = P21_30()
-    p.solve_largest()
+    p.solve_all()
