@@ -54,6 +54,12 @@ class P31_40(Problem):
                     x = rotate(x, nrotate)
         print len(circular_primes)
 
+    def p36(self):
+        """Double-base palindromes"""
+        LIMIT = 1000000
+        print sum([x for x in xrange(1, LIMIT) if str(x) == str(x)[::-1]
+                   and bin(x)[2:] == bin(x)[:1:-1]])
+
 if __name__ == '__main__':
     p = P31_40()
     p.solve_largest()
