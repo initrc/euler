@@ -81,6 +81,29 @@ class P31_40(Problem):
                 finalp = p
         print "p=%d, max number of solution=%d" % (finalp, sol_num)
 
+    def p40(self):
+        """Champernowne's constant"""
+        pos = {1: 1}
+        i, finalp, LIMIT = 1, 1, 6
+        while pos[i] < 10 ** LIMIT:
+            j = i * 10
+            pos[j] = pos[i] + (j-i) * int(math.log10(j))
+            i = j
+        for x in [10 ** i for i in xrange(LIMIT + 1)]:
+            for y in sorted(pos.keys()):
+                if pos[y] == x:
+                    # finalp *= 1
+                    break
+                elif pos[y] > x:
+                    y = y / 10
+                    diff = x - pos[y]
+                    digit = int(math.log10(y) + 1)
+                    num = diff / digit + y
+                    bit = diff % digit
+                    finalp *= int(str(num)[bit])
+                    break
+        print finalp
+
 if __name__ == '__main__':
     p = P31_40()
     p.solve_largest()
