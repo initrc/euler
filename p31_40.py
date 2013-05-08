@@ -60,6 +60,27 @@ class P31_40(Problem):
         print sum([x for x in xrange(1, LIMIT) if str(x) == str(x)[::-1]
                    and bin(x)[2:] == bin(x)[:1:-1]])
 
+    def p39(self):
+        """Integer right triangles"""
+        finalp = 120
+        sol_num = 3
+        LIMIT = 1000
+        square_diff = lambda a, b, p: a**2 + b**2 - (p-a-b)**2
+        for p in xrange(5, LIMIT + 1):
+            cur_sol_num = 0
+            for a in xrange(1, p / 3):
+                bstart = max(a, int(p/2 - a))
+                for b in xrange(bstart, int((p-a)/2 - 1)):
+                    diff = square_diff(a, b, p)
+                    if diff == 0:
+                        cur_sol_num += 1
+                    elif diff > 0:
+                        break
+            if cur_sol_num > sol_num:
+                sol_num = cur_sol_num
+                finalp = p
+        print "p=%d, max number of solution=%d" % (finalp, sol_num)
+
 if __name__ == '__main__':
     p = P31_40()
     p.solve_largest()
