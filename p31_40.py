@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import itertools
 import math
 from sets import Set
 
@@ -8,6 +9,31 @@ from problem import Problem
 
 
 class P31_40(Problem):
+
+    def p31(self):
+        """Coin sums"""
+        sol_count = 0
+        coins = [100, 50, 20, 10, 5]
+        max_picks = [200 / i for i in coins]
+        picks = [0] * len(coins)
+        for picks in itertools.product(xrange(max_picks[-1] + 1),
+                                       repeat=len(coins)):
+            s = 0
+            for coin, pick in zip(coins, picks):
+                s += coin * pick
+            if s > 200:
+                continue
+            exceed = False
+            for max_pick, pick in zip(max_picks, picks):
+                if max_pick < pick:
+                    exceed = True
+                    break
+            if exceed:
+                continue
+            sol_count += (200-s)/2 + 1
+            if picks[0] == 2:
+                break
+        print sol_count + 1
 
     def p34(self):
         """Digit factorials"""
@@ -106,4 +132,4 @@ class P31_40(Problem):
 
 if __name__ == '__main__':
     p = P31_40()
-    p.solve_largest()
+    p.solve(31)
