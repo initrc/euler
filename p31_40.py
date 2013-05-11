@@ -12,6 +12,29 @@ class P31_40(Problem):
 
     def p31(self):
         """Coin sums"""
+        """Bottom-up dynamic programming - Project Euler answer"""
+        """
+        w(t, c) = 1                      if c = 1 or t = 0
+        w(t, c) = w(t, s(c))             if c > 1 and t < c
+        w(t, c) = w(t, s(c)) + w(t-c, c) if c > 1 and t >= c
+        t = target amount
+        c = the value of the largest available coin
+        s(c) = the value of the next coin small than c
+        w(t, c) = the number of ways to make the target amount t
+        with coins of value c and/or small coins
+        """
+        coins = [1, 2, 5, 10, 20, 50, 100, 200]
+        amount = 200
+        ways = [0] * (amount + 1)
+        ways[0] = 1
+        for coin in coins:
+            for i in xrange(coin, amount + 1):
+                ways[i] += ways[i - coin]
+        print ways[amount]
+
+    def _p31_with_product(self):
+        """Coin sums"""
+        """Solve with dynamic product"""
         sol_count = 0
         coins = [100, 50, 20, 10, 5]
         max_picks = [200 / i for i in coins]
