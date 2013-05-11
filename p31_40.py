@@ -15,25 +15,25 @@ class P31_40(Problem):
         sol_count = 0
         coins = [100, 50, 20, 10, 5]
         max_picks = [200 / i for i in coins]
-        picks = [0] * len(coins)
-        for picks in itertools.product(xrange(max_picks[-1] + 1),
-                                       repeat=len(coins)):
-            s = 0
-            for coin, pick in zip(coins, picks):
-                s += coin * pick
+        n = len(coins)
+        picks = [0] * n
+        coinsum = lambda: sum(c * p for c, p in zip(coins, picks))
+        for picks in self._dynamic_product(max_picks):
+            s = coinsum()
             if s > 200:
                 continue
-            exceed = False
-            for max_pick, pick in zip(max_picks, picks):
-                if max_pick < pick:
-                    exceed = True
-                    break
-            if exceed:
-                continue
             sol_count += (200-s)/2 + 1
-            if picks[0] == 2:
-                break
         print sol_count + 1
+
+    def _dynamic_product(self, itercounts):
+        """A simple dynamic version of itertools.product"""
+        """itercountsis a list of iteration numbers"""
+        pools = [range(x + 1) for x in itercounts]
+        result = [[]]
+        for pool in pools:
+            result = [x+[y] for x in result for y in pool]
+        for prod in result:
+            yield prod
 
     def p34(self):
         """Digit factorials"""
