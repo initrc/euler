@@ -109,6 +109,26 @@ class P31_40(Problem):
         print sum([x for x in xrange(1, LIMIT) if str(x) == str(x)[::-1]
                    and bin(x)[2:] == bin(x)[:1:-1]])
 
+    def p37(self):
+        """Truncatable primes"""
+        LIMIT = 1000000
+        count = 0
+        prime_sum = 0
+        primes = P1_10()._prime_set(LIMIT)
+        primes_list = sorted(primes)
+        for prime in primes_list[4:]:
+            truncatable = True
+            for d in [pow(10, i + 1) for i in xrange(int(math.log10(prime)))]:
+                if prime / d not in primes or prime % d not in primes:
+                    truncatable = False
+                    break
+            if truncatable:
+                prime_sum += prime
+                count += 1
+            if count == 11:
+                break
+        print prime_sum
+
     def p39(self):
         """Integer right triangles"""
         finalp = 120
@@ -155,4 +175,4 @@ class P31_40(Problem):
 
 if __name__ == '__main__':
     p = P31_40()
-    p.solve(31)
+    p.solve(37)
