@@ -194,6 +194,35 @@ class P31_40(Problem):
                 break
         print prime_sum
 
+    def p38(self):
+        """Pandigital multiples"""
+        """
+        The multiplicand starts with 9
+        9: 918273645
+        9x: 2+3+3 = 8 digits
+        9xx: 3+4+4 = 11 digits
+        9xxx: 4+5 = 9 digits, possible answer that is > 918273645
+        """
+        max_pandigital = 918273645
+        # if a >= 9500, b = 19xxx that contains 9
+        for a in range(9182, 9500):
+            a_digits = self._digits(a)
+            if a_digits is None:
+                continue
+            b = a * 2
+            b_digits = self._digits(b)
+            if b_digits is None:
+                continue
+            is_pandigital = True
+            for i in xrange(9):
+                if a_digits[i] + b_digits[i] != 1:
+                    is_pandigital = False
+                    break
+            if is_pandigital:
+                pandigital = a * 100002
+                max_pandigital = max(pandigital, max_pandigital)
+        print max_pandigital
+
     def p39(self):
         """Integer right triangles"""
         finalp = 120
@@ -240,4 +269,4 @@ class P31_40(Problem):
 
 if __name__ == '__main__':
     p = P31_40()
-    p.solve(33)
+    p.solve_all()
