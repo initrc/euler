@@ -58,6 +58,51 @@ class P31_40(Problem):
         for prod in result:
             yield prod
 
+    def p32(self):
+        """Pandigital products"""
+        pandigital = Set()
+        digit_num = lambda x: int(math.log10(x) + 1)
+        list_mul = lambda x, y: [i * j for i, j in zip(x, y)]
+
+        for a in xrange(2, 100):
+            a_digits = self._digits(a)
+            if a_digits is None:
+                continue
+            a_digit_num = digit_num(a)
+            b_digit_num = 5 - a_digit_num
+            b_start = pow(10, b_digit_num - 1)
+            for b in xrange(b_start, b_start * 10):
+                c = a * b
+                c_digit_num = digit_num(c)
+                if c_digit_num > 4:
+                    break
+                b_digits = self._digits(b)
+                if b_digits is None or sum(list_mul(a_digits, b_digits)):
+                    continue
+                c_digits = self._digits(c)
+                if c_digits is None:
+                    continue
+                is_pandigital = True
+                for i in xrange(9):
+                    if (a_digits[i] + b_digits[i] + c_digits[i]) != 1:
+                        is_pandigital = False
+                        break
+                if is_pandigital:
+                    pandigital.add(c)
+                    print "%d * %d = %d" % (a, b, c)
+        print sum(pandigital)
+
+    def _digits(self, num):
+        """Return a list of digits or None if there are duplicates"""
+        digits = [0] * 9
+        while num > 0:
+            digit = num % 10
+            if digit == 0 or digits[digit - 1] == 1:
+                return None
+            digits[digit - 1] = 1
+            num /= 10
+        return digits
+
     def p34(self):
         """Digit factorials"""
         # 9! = 362880, 7 digit maximum
@@ -175,4 +220,4 @@ class P31_40(Problem):
 
 if __name__ == '__main__':
     p = P31_40()
-    p.solve(37)
+    p.solve(32)
