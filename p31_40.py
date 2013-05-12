@@ -103,6 +103,26 @@ class P31_40(Problem):
             num /= 10
         return digits
 
+    def p33(self):
+        """Digit canceling fractions"""
+        """ab/bc = a/c"""
+        numerator, denominator, factor = 1, 1, 2
+        for b in xrange(1, 10):
+            for a, c in itertools.product(range(1, 10), repeat=2):
+                if a == b or c == b:
+                    continue
+                if (a*10+b) * c == (b*10+c) * a:
+                    print "%d/%d = %d/%d" % (a*10+b, b*10+c, a, c)
+                    numerator *= a
+                    denominator *= c
+        while factor <= numerator:
+            if not numerator % factor and not denominator % factor:
+                numerator /= factor
+                denominator /= factor
+            else:
+                factor += 1
+        print denominator
+
     def p34(self):
         """Digit factorials"""
         # 9! = 362880, 7 digit maximum
@@ -220,4 +240,4 @@ class P31_40(Problem):
 
 if __name__ == '__main__':
     p = P31_40()
-    p.solve(32)
+    p.solve(33)
