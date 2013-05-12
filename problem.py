@@ -24,5 +24,5 @@ class Problem:
 
     def solve_all(self):
         """solve all problems"""
-        for id in self.problems.keys():
+        for id in sorted(self.problems.keys()):
             self.solve(id)
