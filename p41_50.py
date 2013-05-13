@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import itertools
-from sets import Set
+import operator
+from string import uppercase
 
 from p1_10 import P1_10
 from problem import Problem
@@ -25,16 +26,11 @@ class P41_50(Problem):
 
     def p42(self):
         """Coded triangle numbers"""
-        count = 0
-        tri_nums = Set()
-        for i in xrange(1, 100):
-            tri_nums.add(i * (i+1) / 2)
+        trinum_count = lambda x: 0 if ((8 * x + 1) ** 0.5 - 1) % 2 else 1
+        word_value = lambda s: sum([uppercase.index(c) + 1 for c in s])
         with open('data/p42_words.txt', 'r') as f:
             words = [s.strip('\".\"') for s in f.read().split(',')]
-            for word in words:
-                if sum([ord(c) - 64 for c in word]) in tri_nums:
-                    count += 1
-        print count
+            print sum([trinum_count(word_value(w)) for w in words])
 
 if __name__ == '__main__':
     p = P41_50()
