@@ -61,7 +61,7 @@ class P21_30(Problem):
 
     def p22(self):
         """Names scores"""
-        with open('data/names.txt', 'r') as f:
+        with open('data/p22_names.txt', 'r') as f:
             names = [s.strip('\".\"') for s in f.read().split(',')]
         score = 0
         for idx, name in enumerate(sorted(names)):

@@ -13,7 +13,7 @@ class P61_70(Problem):
         p.p18(self._p67_build_tree())
 
     def _p67_build_tree(self):
-        with open('data/triangle.txt', 'r') as f:
+        with open('data/p67_triangle.txt', 'r') as f:
             return [map(lambda x: TreeNode(int(x)), x.split())
                     for x in f.readlines()]
 
