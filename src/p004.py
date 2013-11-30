@@ -26,26 +26,26 @@ def solve():
                     return "%d = %d * %d" % (max, x1, x2)
                 else:
                     break
-            if is_palindrome(p):
+            if ispalindrome(p):
                 max, x1, x2 = p, i, j
 
 
-def is_palindrome(x):
+def ispalindrome(x):
     if x < 0:
         return False
     if x < 10:
         return True
     digit = int(math.log(x, 10)) + 1
     base = 10 ** (digit - 1)
-    reverse_x = 0
+    xreverse = 0
     multi = 1
     num = x
     for i in range(digit):
-        reverse_x += num // base * multi
+        xreverse += num // base * multi
         num %= base
         base //= 10
         multi *= 10
-    return x == reverse_x
+    return x == xreverse
 
 
 if __name__ == '__main__':
