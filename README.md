@@ -1,4 +1,4 @@
 euler
 =====
 
-[Project Euler](http://projecteuler.net/) solutions
+[Project Euler](http://projecteuler.net/) solutions in Python 3.
