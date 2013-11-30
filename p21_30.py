@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
 import itertools
-import math
 import operator
-from sets import Set
 
 from p1_10 import P1_10
 from problem import Problem
+from functools import reduce
 
 
 class P21_30(Problem):
@@ -14,8 +13,8 @@ class P21_30(Problem):
     def p21(self):
         """Amicable numbers"""
         primes = sorted(P1_10()._prime_set(10000))
-        amicable = Set()
-        for x in xrange(1, 10000):
+        amicable = set()
+        for x in range(1, 10000):
             if x in amicable:
                 continue
             y = self._proper_divisor_sum(x, primes)
@@ -23,11 +22,11 @@ class P21_30(Problem):
                 amicable.add(x)
                 if y < 10000:
                     amicable.add(y)
-        print sum(amicable)
+        print(sum(amicable))
 
     def _proper_divisor_sum(self, num, primes):
         if num < 2:
-            return
+            return 0
         prime_divisors = []
         x = num
         for prime in primes:
@@ -36,7 +35,7 @@ class P21_30(Problem):
             prime_count = 0
             while not x % prime:
                 prime_count += 1
-                x /= prime
+                x //= prime
             if prime_count > 0:
                 prime_divisors.append((prime, prime_count))
         if not prime_divisors:
@@ -48,7 +47,7 @@ class P21_30(Problem):
         power = [0] * length
         while True:
             yield reduce(operator.mul, [prime_divisors[i][0] ** power[i]
-                                        for i in xrange(length)])
+                                        for i in range(length)])
             idx = 0
             while True:
                 power[idx] += 1
@@ -67,21 +66,21 @@ class P21_30(Problem):
         for idx, name in enumerate(sorted(names)):
             s = sum(ord(c) - 64 for c in name)
             score += s * (idx + 1)
-        print score
+        print(score)
 
     def p23(self):
         """Non-abundant sums"""
         LIMIT = 28123
         primes = sorted(P1_10()._prime_set(LIMIT + 1))
         is_abundant = lambda x: self._proper_divisor_sum(x, primes) > x
-        abundant = filter(is_abundant, xrange(2, LIMIT + 1))
-        abundant_sum = Set()
-        for i in xrange(len(abundant)):
+        abundant = list(filter(is_abundant, range(2, LIMIT + 1)))
+        abundant_sum = set()
+        for i in range(len(abundant)):
             if abundant[i] * 2 > LIMIT:
-                print sum([x for x in xrange(1, LIMIT + 1) if x not in
-                           abundant_sum])
+                print(sum([x for x in range(1, LIMIT + 1) if x not in
+                           abundant_sum]))
                 return
-            for j in xrange(i, len(abundant)):
+            for j in range(i, len(abundant)):
                 s = abundant[i] + abundant[j]
                 if s <= LIMIT:
                     abundant_sum.add(s)
@@ -91,10 +90,10 @@ class P21_30(Problem):
     def p24(self):
         """Lexicographic permutations"""
         LIMIT = 1000000
-        p = itertools.permutations(xrange(10))
-        for i in xrange(LIMIT - 1):
-            p.next()
-        print reduce(lambda x, y: x * 10 + y, p.next())
+        p = itertools.permutations(range(10))
+        for i in range(LIMIT - 1):
+            next(p)
+        print(reduce(lambda x, y: x * 10 + y, next(p)))
 
     def p25(self):
         """1000-digit Fibonacci number"""
@@ -102,12 +101,12 @@ class P21_30(Problem):
         while j < 10 ** 999:
             i, j = j, i + j
             idx += 1
-        print idx
+        print(idx)
 
     def p26(self):
         """Reciprocal cycles"""
         longest, d = 0, 0
-        for x in xrange(2, 1000):
+        for x in range(2, 1000):
             idx, length = 0, 0
             remainders = {}
             dividend = 10
@@ -115,7 +114,7 @@ class P21_30(Problem):
                 dividend *= 10
             remainder = dividend % x
             while remainder != 0:
-                if remainder in remainders.keys():
+                if remainder in remainders:
                     length = idx - remainders.get(remainder)
                     if length > longest:
                         longest = length
@@ -128,7 +127,7 @@ class P21_30(Problem):
                     idx += 1
                 remainder = dividend % x
                 idx += 1
-        print d
+        print(d)
 
     def p27(self):
         """Quadratic primes"""
@@ -140,8 +139,8 @@ class P21_30(Problem):
         # a must be odd and b must be a prime
         f = lambda a, b, n: n ** 2 + a * n + b
         primes = P1_10()._prime_set(MAX_PRIME + 1)
-        for b in filter(lambda x: x > 41 and x < 1000, primes):
-            for a in xrange(1 - LIMIT, 1000, 2):
+        for b in [x for x in primes if x > 41 and x < 1000]:
+            for a in range(1 - LIMIT, 1000, 2):
                 if f(a, b, 40) in primes:
                     n = 0
                     while True:
@@ -152,43 +151,43 @@ class P21_30(Problem):
                                 max_n = n
                                 final_a, final_b = a, b
                             break
-        print "a=%d, b=%d, a*b=%d, n = 0 to %d" % (final_a, final_b,
-                                                   final_a * final_b, max_n)
+        print("a=%d, b=%d, a*b=%d, n = 0 to %d" % (final_a, final_b,
+                                                   final_a * final_b, max_n))
 
     def p28(self):
         """Number spiral diagonals"""
         """
         sum = 1 + 4 * (6 + 19 + ...)
         upper right = 3^2, 5^2, ...
-        f(n) = n^2 - (n-1) - (n-1)/2 = n^2 - (n-1)*3/2
+        f(n) = n^2 - (n-1) - (n-1)//2 = n^2 - (n-1)*3//2
         f(3) = 6, f(5) = 19, ...
         """
         LIMIT = 1001
-        f = lambda n: n ** 2 - (n - 1) * 3 / 2
-        s = sum(map(f, xrange(3, LIMIT + 1, 2)))
-        print 1 + s * 4
+        f = lambda n: n ** 2 - (n - 1) * 3 // 2
+        s = sum(map(f, range(3, LIMIT + 1, 2)))
+        print(1 + s * 4)
 
     def p29(self):
         """Distinct powers"""
-        set = Set()
-        for a in xrange(2, 101):
-            for b in xrange(2, 101):
-                set.add(a ** b)
-        print len(set)
+        s = set()
+        for a in range(2, 101):
+            for b in range(2, 101):
+                s.add(a ** b)
+        print(len(s))
 
     def p30(self):
         """Digit fifth powers"""
         sum = 0
         # 9^5=59049, at most 6 digits
-        for i in xrange(2, 9**5 * 6 + 1):
+        for i in range(2, 9**5 * 6 + 1):
             num = 0
             x = i
             while x > 0:
                 num += (x % 10) ** 5
-                x /= 10
+                x //= 10
             if num == i:
                 sum += num
-        print sum
+        print(sum)
 
 if __name__ == '__main__':
     p = P21_30()

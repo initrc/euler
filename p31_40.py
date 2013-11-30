@@ -2,7 +2,6 @@
 
 import itertools
 import math
-from sets import Set
 
 from p1_10 import P1_10
 from problem import Problem
@@ -28,16 +27,16 @@ class P31_40(Problem):
         ways = [0] * (amount + 1)
         ways[0] = 1
         for coin in coins:
-            for i in xrange(coin, amount + 1):
+            for i in range(coin, amount + 1):
                 ways[i] += ways[i - coin]
-        print ways[amount]
+        print(ways[amount])
 
     def _p31_with_product(self):
         """Coin sums"""
         """Solve with dynamic product"""
         sol_count = 0
         coins = [100, 50, 20, 10, 5]
-        max_picks = [200 / i for i in coins]
+        max_picks = [200 // i for i in coins]
         n = len(coins)
         picks = [0] * n
         coinsum = lambda: sum(c * p for c, p in zip(coins, picks))
@@ -45,33 +44,32 @@ class P31_40(Problem):
             s = coinsum()
             if s > 200:
                 continue
-            sol_count += (200-s)/2 + 1
-        print sol_count + 1
+            sol_count += (200-s)//2 + 1
+        print(sol_count + 1)
 
     def _dynamic_product(self, itercounts):
         """A simple dynamic version of itertools.product"""
-        """itercountsis a list of iteration numbers"""
-        pools = [range(x + 1) for x in itercounts]
+        """itercounts is a list of iteration numbers"""
         result = [[]]
-        for pool in pools:
+        for pool in [range(x + 1) for x in itercounts]:
             result = [x+[y] for x in result for y in pool]
         for prod in result:
             yield prod
 
     def p32(self):
         """Pandigital products"""
-        pandigital = Set()
+        pandigital = set()
         digit_num = lambda x: int(math.log10(x) + 1)
         list_mul = lambda x, y: [i * j for i, j in zip(x, y)]
 
-        for a in xrange(2, 100):
+        for a in range(2, 100):
             a_digits = self._digits(a)
             if a_digits is None:
                 continue
             a_digit_num = digit_num(a)
             b_digit_num = 5 - a_digit_num
             b_start = pow(10, b_digit_num - 1)
-            for b in xrange(b_start, b_start * 10):
+            for b in range(b_start, b_start * 10):
                 c = a * b
                 c_digit_num = digit_num(c)
                 if c_digit_num > 4:
@@ -83,14 +81,14 @@ class P31_40(Problem):
                 if c_digits is None:
                     continue
                 is_pandigital = True
-                for i in xrange(9):
+                for i in range(9):
                     if (a_digits[i] + b_digits[i] + c_digits[i]) != 1:
                         is_pandigital = False
                         break
                 if is_pandigital:
                     pandigital.add(c)
-                    print "%d * %d = %d" % (a, b, c)
-        print sum(pandigital)
+                    print("%d * %d = %d" % (a, b, c))
+        print(sum(pandigital))
 
     def _digits(self, num):
         """Return a list of digits or None if there are duplicates"""
@@ -100,42 +98,42 @@ class P31_40(Problem):
             if digit == 0 or digits[digit - 1] == 1:
                 return None
             digits[digit - 1] = 1
-            num /= 10
+            num //= 10
         return digits
 
     def p33(self):
         """Digit canceling fractions"""
-        """ab/bc = a/c"""
+        """ab//bc = a//c"""
         numerator, denominator, factor = 1, 1, 2
-        for b in xrange(1, 10):
-            for a, c in itertools.product(range(1, 10), repeat=2):
+        for b in range(1, 10):
+            for a, c in itertools.product(list(range(1, 10)), repeat=2):
                 if a == b or c == b:
                     continue
                 if (a*10+b) * c == (b*10+c) * a:
-                    print "%d/%d = %d/%d" % (a*10+b, b*10+c, a, c)
+                    print("%d/%d = %d/%d" % (a*10+b, b*10+c, a, c))
                     numerator *= a
                     denominator *= c
         while factor <= numerator:
             if not numerator % factor and not denominator % factor:
-                numerator /= factor
-                denominator /= factor
+                numerator //= factor
+                denominator //= factor
             else:
                 factor += 1
-        print denominator
+        print(denominator)
 
     def p34(self):
         """Digit factorials"""
         # 9! = 362880, 7 digit maximum
         LIMIT = math.factorial(9) * 7
         dsum = 0
-        fdiff = [math.factorial(x) - 1 for x in xrange(10)]
-        for i in xrange(10, LIMIT + 1, 10):
+        fdiff = [math.factorial(x) - 1 for x in range(10)]
+        for i in range(10, LIMIT + 1, 10):
             x = i
             s = 0
             while x > 0:
                 s += math.factorial(x % 10)
-                x /= 10
-            for lastdigit in xrange(10):
+                x //= 10
+            for lastdigit in range(10):
                 tempsum = s + fdiff[lastdigit]
                 if tempsum == i + lastdigit:
                     dsum += tempsum
@@ -143,36 +141,36 @@ class P31_40(Problem):
                         break
                 elif tempsum > i + lastdigit and lastdigit == 2:
                     break
-        print dsum
+        print(dsum)
 
     def p35(self):
         """Circular primes"""
         LIMIT = 1000000
         primes = P1_10()._prime_set(LIMIT)
-        circular_primes = Set()
+        circular_primes = set()
         digitnum = lambda x: int(math.log10(x) + 1)
-        rotate = lambda x, d: x % 10 * 10**d + x / 10
+        rotate = lambda x, d: x % 10 * 10**d + x // 10
         for x in primes:
             if x in circular_primes:
                 continue
             circular = True
             nrotate = digitnum(x) - 1
-            for d in xrange(nrotate):
+            for d in range(nrotate):
                 x = rotate(x, nrotate)
                 if x not in primes:
                     circular = False
                     break
             if circular:
-                for d in xrange(nrotate + 1):
+                for d in range(nrotate + 1):
                     circular_primes.add(x)
                     x = rotate(x, nrotate)
-        print len(circular_primes)
+        print(len(circular_primes))
 
     def p36(self):
         """Double-base palindromes"""
         LIMIT = 1000000
-        print sum([x for x in xrange(1, LIMIT) if str(x) == str(x)[::-1]
-                   and bin(x)[2:] == bin(x)[:1:-1]])
+        print(sum([x for x in range(1, LIMIT) if str(x) == str(x)[::-1]
+                   and bin(x)[2:] == bin(x)[:1:-1]]))
 
     def p37(self):
         """Truncatable primes"""
@@ -183,8 +181,8 @@ class P31_40(Problem):
         primes_list = sorted(primes)
         for prime in primes_list[4:]:
             truncatable = True
-            for d in [pow(10, i + 1) for i in xrange(int(math.log10(prime)))]:
-                if prime / d not in primes or prime % d not in primes:
+            for d in [pow(10, i + 1) for i in range(int(math.log10(prime)))]:
+                if prime // d not in primes or prime % d not in primes:
                     truncatable = False
                     break
             if truncatable:
@@ -192,7 +190,7 @@ class P31_40(Problem):
                 count += 1
             if count == 11:
                 break
-        print prime_sum
+        print(prime_sum)
 
     def p38(self):
         """Pandigital multiples"""
@@ -214,14 +212,14 @@ class P31_40(Problem):
             if b_digits is None:
                 continue
             is_pandigital = True
-            for i in xrange(9):
+            for i in range(9):
                 if a_digits[i] + b_digits[i] != 1:
                     is_pandigital = False
                     break
             if is_pandigital:
                 pandigital = a * 100002
                 max_pandigital = max(pandigital, max_pandigital)
-        print max_pandigital
+        print(max_pandigital)
 
     def p39(self):
         """Integer right triangles"""
@@ -229,11 +227,11 @@ class P31_40(Problem):
         sol_num = 3
         LIMIT = 1000
         square_diff = lambda a, b, p: a**2 + b**2 - (p-a-b)**2
-        for p in xrange(5, LIMIT + 1):
+        for p in range(5, LIMIT + 1):
             cur_sol_num = 0
-            for a in xrange(1, p / 3):
-                bstart = max(a, int(p/2 - a))
-                for b in xrange(bstart, int((p-a)/2 - 1)):
+            for a in range(1, p // 3):
+                bstart = max(a, p//2 - a)
+                for b in range(bstart, (p-a)//2 - 1):
                     diff = square_diff(a, b, p)
                     if diff == 0:
                         cur_sol_num += 1
@@ -242,7 +240,7 @@ class P31_40(Problem):
             if cur_sol_num > sol_num:
                 sol_num = cur_sol_num
                 finalp = p
-        print "p=%d, max number of solution=%d" % (finalp, sol_num)
+        print("p=%d, max number of solution=%d" % (finalp, sol_num))
 
     def p40(self):
         """Champernowne's constant"""
@@ -252,20 +250,20 @@ class P31_40(Problem):
             j = i * 10
             pos[j] = pos[i] + (j-i) * int(math.log10(j))
             i = j
-        for x in [10 ** i for i in xrange(LIMIT + 1)]:
+        for x in [10 ** k for k in range(LIMIT + 1)]:
             for y in sorted(pos.keys()):
                 if pos[y] == x:
                     # finalp *= 1
                     break
                 elif pos[y] > x:
-                    y = y / 10
+                    y = y // 10
                     diff = x - pos[y]
                     digit = int(math.log10(y) + 1)
-                    num = diff / digit + y
+                    num = diff // digit + y
                     bit = diff % digit
                     finalp *= int(str(num)[bit])
                     break
-        print finalp
+        print(finalp)
 
 if __name__ == '__main__':
     p = P31_40()

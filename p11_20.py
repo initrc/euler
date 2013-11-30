@@ -30,44 +30,44 @@ class P11_20(Problem):
             "20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16",
             "20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54",
             "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"]
-        grid = [map(int, x.split()) for x in input]
+        grid = [list(map(int, x.split())) for x in input]
         row_col_max, diag_max = 0, 0
-        for i in xrange(0, len(grid)):
-            for j in xrange(0, len(grid) - 3):
+        for i in range(0, len(grid)):
+            for j in range(0, len(grid) - 3):
                 cur_row, cur_col = 1, 1
-                for k in xrange(4):
+                for k in range(4):
                     cur_row *= grid[i][j + k]
                     cur_col *= grid[j + k][i]
                     row_col_max = max(row_col_max, cur_row, cur_col)
         # \ direction
-        for i in xrange(0, len(grid) - 3):
-            for j in xrange(0, len(grid) - 3 - i):
+        for i in range(0, len(grid) - 3):
+            for j in range(0, len(grid) - 3 - i):
                 cur_diag = 1
                 if i == 0:
-                    for k in xrange(4):
+                    for k in range(4):
                         cur_diag = grid[j + k][j + k]
                 else:
                     cur_diag_up, cur_diag_down = 1, 1
-                    for k in xrange(4):
+                    for k in range(4):
                         cur_diag_up *= grid[j + k][i + j + k]
                         cur_diag_down *= grid[i + j + k][j + k]
                     cur_diag = max(cur_diag_up, cur_diag_down)
                     diag_max = max(diag_max, cur_diag)
         # / direction
-        for i in xrange(len(grid) - 1, 2, -1):
-            for j in xrange(0, i - 3):
+        for i in range(len(grid) - 1, 2, -1):
+            for j in range(0, i - 3):
                 cur_diag = 1
                 if i == 19:
-                    for k in xrange(4):
+                    for k in range(4):
                         cur_diag = grid[i - k][j + k]
                 else:
                     cur_diag_up, cur_diag_down = 1, 1
-                    for k in xrange(4):
+                    for k in range(4):
                         cur_diag_up *= grid[i - k][j + k]
                         cur_diag_down *= grid[19 - j - k][19 - i + k]
                     cur_diag = max(cur_diag_up, cur_diag_down)
                     diag_max = max(diag_max, cur_diag)
-        print max(row_col_max, diag_max)
+        print(max(row_col_max, diag_max))
 
     def p12(self):
         """Highly divisible triangular number"""
@@ -76,12 +76,12 @@ class P11_20(Problem):
             i += 1
             tri_num += i
             if self._num_of_divisor(tri_num) > 500:
-                print tri_num
+                print(tri_num)
                 return
 
     def _num_of_divisor(self, x):
         num = 1
-        for i in xrange(2, int(math.sqrt(x)) + 1):
+        for i in range(2, int(math.sqrt(x)) + 1):
             if not x % i:
                 num += 1
         return num * 2
@@ -190,14 +190,14 @@ class P11_20(Problem):
             "20849603980134001723930671666823555245252804609722",
             "53503534226472524250874054075591789781264330331690"]
         carry = [0] * 53
-        for idx in xrange(50):
+        for idx in range(50):
             x = sum(int(s[49 - idx]) for s in input)
             carry_idx = idx
             while x > 0:
                 carry[carry_idx] += x % 10
-                x /= 10
+                x //= 10
                 carry_idx += 1
-            for i in xrange(idx, carry_idx):
+            for i in range(idx, carry_idx):
                 if carry[i] > 9:
                     carry[i] -= 10
                     carry[i + 1] += 1
@@ -205,14 +205,14 @@ class P11_20(Problem):
                 carry[carry_idx] -= 10
                 carry_idx += 1
                 carry[carry_idx] += 1
-        print ''.join(map(str, carry[-2:41:-1]))
+        print(''.join(map(str, carry[-2:41:-1])))
 
     def p14(self):
         """Longest Collatz sequence"""
-        f = lambda n: n / 2 if not n % 2 else 3 * n + 1
+        f = lambda n: n // 2 if not n % 2 else 3 * n + 1
         history = {1: 1}
         max_chain, max_num = 1, 1
-        for num in xrange(999999, 0, -1):
+        for num in range(999999, 0, -1):
             chain = []
             x = num
             while x not in history and x != 1:
@@ -224,14 +224,14 @@ class P11_20(Problem):
             if history[num] > max_chain:
                 max_chain = history[num]
                 max_num = num
-        print "chain starts at %d has length %d" % (max_num, max_chain)
+        print("chain starts at %d has length %d" % (max_num, max_chain))
 
     def p15(self):
         """Lattice paths"""
         f = math.factorial
-        nCr = lambda n, r: f(n) / f(r) / f(n - r)
+        nCr = lambda n, r: f(n) // f(r) // f(n - r)
         length = 20
-        print nCr(length * 2, length)
+        print(nCr(length * 2, length))
 
     def p16(self):
         """Power digit sum"""
@@ -239,15 +239,15 @@ class P11_20(Problem):
         sum = 0
         while num > 0:
             sum += num % 10
-            num /= 10
-        print sum
+            num //= 10
+        print(sum)
 
     def p17(self):
         """Number letter counts"""
         sum = 0
-        for x in xrange(1, 1001):
+        for x in range(1, 1001):
             sum += self._p17_strlen(x)
-        print sum
+        print(sum)
 
     def _p17_strlen(self, x):
         rules = {
@@ -288,13 +288,13 @@ class P11_20(Problem):
             if x in rules:
                 return rules[x]
             else:
-                return rules[x % 10] + rules[x / 10 * 10]
+                return rules[x % 10] + rules[x // 10 * 10]
         elif x <= 999:
             digit2 = len("and") + self._p17_strlen(x % 100) if x % 100 else 0
-            return rules[x / 100] + rules[100] + digit2
+            return rules[x // 100] + rules[100] + digit2
         elif x <= 20000:
             digit3 = len("and") + self._p17_strlen(x % 1000) if x % 1000 else 0
-            return rules[x / 1000] + rules[1000] + digit3
+            return rules[x // 1000] + rules[1000] + digit3
         else:
             return 0  # unsupported
 
@@ -309,7 +309,7 @@ class P11_20(Problem):
                 if tree[i + 1][j].value_above < node.value:
                     tree[i + 1][j].value_above = node.value
                 tree[i + 1][j + 1].value_above = node.value
-        print max(x.value_above + x.value for x in tree[-1])
+        print(max(x.value_above + x.value for x in tree[-1]))
 
     def _p18_build_tree(self):
         input = [
@@ -328,16 +328,16 @@ class P11_20(Problem):
             "91 71 52 38 17 14 91 43 58 50 27 29 48",
             "63 66 04 68 89 53 67 30 73 16 69 87 40 31",
             "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"]
-        return [map(lambda x: TreeNode(int(x)), x.split()) for x in input]
+        return [[TreeNode(int(x)) for x in x.split()] for x in input]
 
     def p19(self):
         """Counting Sundays"""
         sum = 0
-        for i in xrange(1901, 2001):
-            for j in xrange(1, 13):
+        for i in range(1901, 2001):
+            for j in range(1, 13):
                 if date(i, j, 1).weekday() == 6:
                     sum += 1
-        print sum
+        print(sum)
 
     def p20(self):
         """Factorial digit sum"""
@@ -345,8 +345,8 @@ class P11_20(Problem):
         sum = 0
         while x > 0:
             sum += x % 10
-            x /= 10
-        print sum
+            x //= 10
+        print(sum)
 
 
 class TreeNode:

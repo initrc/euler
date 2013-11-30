@@ -2,7 +2,6 @@
 
 import math
 from problem import Problem
-from sets import Set
 
 
 class P1_10(Problem):
@@ -13,7 +12,7 @@ class P1_10(Problem):
         for i in range(1, 1000):
             if not i % 3 or not i % 5:
                 sum += i
-        print sum
+        print(sum)
 
     def p2(self):
         """Even Fibonacci numbers"""
@@ -22,7 +21,7 @@ class P1_10(Problem):
             sum += b
             # a(odd), b(even), a+b(odd), a+2b(odd), 2a+3b(even)
             a, b = a + 2 * b, 2 * a + 3 * b
-        print sum
+        print(sum)
 
     def p3(self):
         """Largest prime factor"""
@@ -32,11 +31,11 @@ class P1_10(Problem):
         gate = math.sqrt(x)
         while factor <= gate:
             if not x % factor:
-                x /= factor
+                x //= factor
                 max_factor = factor
             else:
                 factor += 1
-        print max_factor if x == 1 else x
+        print(max_factor if x == 1 else x)
 
     def p4(self):
         """Largest palindrome product"""
@@ -50,7 +49,7 @@ class P1_10(Problem):
                 p = i * j
                 if p < max:
                     if j == a:
-                        print "%d = %d * %d" % (max, x1, x2)
+                        print("%d = %d * %d" % (max, x1, x2))
                         return
                     else:
                         break
@@ -68,9 +67,9 @@ class P1_10(Problem):
         multi = 1
         num = x
         for i in range(digit):
-            reverse_x += num / base * multi
+            reverse_x += num // base * multi
             num %= base
-            base /= 10
+            base //= 10
             multi *= 10
         return x == reverse_x
 
@@ -80,13 +79,13 @@ class P1_10(Problem):
         prime_idx = 0
         count = 20
         lcm = 1
-        nums = range(1, count + 1)
+        nums = list(range(1, count + 1))
         count_of_1 = 1
         while count_of_1 < count:
             is_divider = False
             for idx, num in enumerate(nums):
                 if not num % primes[prime_idx]:
-                    nums[idx] = num / primes[prime_idx]
+                    nums[idx] = num // primes[prime_idx]
                     if nums[idx] == 1:
                         count_of_1 += 1
                     is_divider = True
@@ -94,7 +93,7 @@ class P1_10(Problem):
                 lcm *= primes[prime_idx]
             else:
                 prime_idx += 1
-        print lcm
+        print(lcm)
 
     def p6(self):
         """Sum square difference"""
@@ -104,7 +103,7 @@ class P1_10(Problem):
         for i in nums:
             sum_of_squares += i ** 2
         square_of_sum = sum(nums) ** 2
-        print square_of_sum - sum_of_squares
+        print(square_of_sum - sum_of_squares)
         # or get the formula f(n) = 1^2 + ... + n^2
 
     def p7(self):
@@ -115,7 +114,7 @@ class P1_10(Problem):
             x += 2
             if self._is_prime(x):
                 idx += 1
-        print x
+        print(x)
 
     def _is_prime(self, x):
         if not x % 2:
@@ -170,7 +169,7 @@ class P1_10(Problem):
                     num[cur_idx + 1:next_idx + 1]))
             cur_idx += 1
             next_idx += 1
-        print product
+        print(product)
 
     def _product_of_str(self, str):
         product = 1
@@ -188,32 +187,32 @@ class P1_10(Problem):
     def p9(self):
         """Special Pythagorean triplet"""
         sum = 1000
-        square_set = Set()
+        square_set = set()
         for i in range(1, sum - 2):
             square_set.add(i * i)
-        for a in range(1, sum / 3):
-            for b in range(a + 1, sum / 2):
+        for a in range(1, sum // 3):
+            for b in range(a + 1, sum // 2):
                 c2 = a*a + b*b
                 if c2 in square_set:
                     c = int(math.sqrt(c2))
                     if a + b + c == 1000:
-                        print a, b, c, a*b*c
+                        print(a, b, c, a*b*c)
                         return
 
     def p10(self):
         """Summation of primes"""
-        print sum(self._prime_set(2000000))
+        print(sum(self._prime_set(2000000)))
 
     def _prime_set(self, limit):
-        set = Set([2, 3])
+        s = {2, 3}
         for i in range(6, limit, 6):
-            set.add(i - 1)
-            set.add(i + 1)
+            s.add(i - 1)
+            s.add(i + 1)
         for i in range(5, int(math.sqrt(limit)) + 1, 2):
             for j in range(i * 3, limit, i):
-                if j in set:
-                    set.remove(j)
-        return set
+                if j in s:
+                    s.remove(j)
+        return s
 
 
 if __name__ == '__main__':

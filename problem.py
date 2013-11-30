@@ -16,7 +16,7 @@ class Problem:
         start = time.time()
         self.problems[id]()
         end = time.time()
-        print "[problem %d: %fs]\n" % (id, end - start)
+        print("[problem %d: %fs]\n" % (id, end - start))
 
     def solve_largest(self):
         """solve the largest problem"""
