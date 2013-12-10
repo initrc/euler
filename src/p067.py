@@ -33,7 +33,6 @@ def solve():
     """Maximum path sum I at p18"""
     file = os.path.abspath(os.path.join(__file__, os.pardir, os.pardir,
                            'data', 'p67_triangle.txt'))
-    print(file)
     with open(file, 'r') as f:
         tree = [[p018.TreeNode(int(x)) for x in x.split()]
                 for x in f.readlines()]
