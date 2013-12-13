@@ -31,6 +31,8 @@ def properdivisors(num, primes):
 
 
 def divisorgen(primedivisors):
+    if not primedivisors:
+        return
     length = len(primedivisors)
     power = [0] * length
     while True:
