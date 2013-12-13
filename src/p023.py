@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
+from util.benchmark import benchmark
 from util.number import sumproperdivisors
 from util.prime import primeset
-from util.benchmark import benchmark
 
 problem = "23. Non-abundant sums"
 """
